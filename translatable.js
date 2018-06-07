@@ -18,11 +18,19 @@ I18n.translations = {
   ru
 }
 
-const translatable = Component => {
+const translatable = (store = 'settingsStore', localeFieldname = 'locale') => Component => {
   return class extends Component {
 
+    constructor(props) {
+      super(props)
+
+      if (!props[store]) throw new Error(`store ${store} not passed`)
+
+      if (!props[store][localeFieldname]) throw new Error(`locale filed '${localeFieldname}' not found in passed store '${store}'`)
+    }
+
     t = (key, opts) => {
-      const { locale } = this.props.settingsStore
+      const locale = this.props[store][localeFieldname]
       return I18n.t(key, { locale });
     }
 
@@ -31,5 +39,8 @@ const translatable = Component => {
     }
   }
 }
+
+
+
 
 export default translatable

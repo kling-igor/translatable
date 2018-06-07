@@ -13,13 +13,6 @@ import allStores from './stores'
 
 import translatable from './translatable'
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -40,7 +33,7 @@ const styles = StyleSheet.create({
 });
 
 @inject(stores => ({ ...stores }))
-@translatable
+@translatable()
 @observer
 class App extends Component {
 
@@ -51,7 +44,6 @@ class App extends Component {
   ruSelected = () => {
     this.props.settingsStore.locale = 'ru'
   }
-
 
   render() {
     const { t } = this.props
